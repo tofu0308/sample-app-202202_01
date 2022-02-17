@@ -12,32 +12,50 @@ function autobind(_, _2, descriptor) {
         get() {
             const boundFn = originalMethod.bind(this);
             return boundFn;
-        }
+        },
     };
     return adjDescriptor;
 }
 class ProjectInput {
     constructor() {
-        this.templateElement = document.getElementById('project-input');
-        this.hostElement = document.getElementById('app');
+        this.templateElement = document.getElementById("project-input");
+        this.hostElement = document.getElementById("app");
         const importedNode = document.importNode(this.templateElement.content, true);
         this.element = importedNode.firstElementChild;
-        this.element.id = 'user-input';
-        this.titleInputElement = this.element.querySelector('#title');
-        this.descriptionInputElement = this.element.querySelector('#title');
-        this.mandayInputElement = this.element.querySelector('#title');
+        this.element.id = "user-input";
+        this.titleInputElement = this.element.querySelector("#title");
+        this.descriptionInputElement = this.element.querySelector("#description");
+        this.mandayInputElement = this.element.querySelector("#manday");
         this.configure();
         this.attach();
     }
+    gatherUserInput() {
+        const enteredTitle = this.titleInputElement.value;
+        const enteredDescription = this.descriptionInputElement.value;
+        const enteredManday = this.mandayInputElement.value;
+        if (enteredTitle.trim().length === 0 ||
+            enteredDescription.trim().length === 0 ||
+            enteredManday.trim().length === 0) {
+            alert("入力値が正しくない");
+            return;
+        }
+        else {
+            return [enteredTitle, enteredDescription, +enteredManday];
+        }
+    }
     submitHandler(event) {
         event.preventDefault();
-        console.log(this.titleInputElement.value);
+        const userInput = this.gatherUserInput();
+        if (Array.isArray(userInput)) {
+            const [title, desc, manday] = userInput;
+            console.log(title, desc, manday);
+        }
     }
     configure() {
-        this.element.addEventListener('submit', this.submitHandler);
+        this.element.addEventListener("submit", this.submitHandler);
     }
     attach() {
-        this.hostElement.insertAdjacentElement('afterbegin', this.element);
+        this.hostElement.insertAdjacentElement("afterbegin", this.element);
     }
 }
 __decorate([
