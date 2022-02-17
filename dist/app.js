@@ -44,9 +44,9 @@ class ProjectInput {
         }
     }
     clearInputs() {
-        this.titleInputElement.value = '';
-        this.descriptionInputElement.value = '';
-        this.mandayInputElement.value = '';
+        this.titleInputElement.value = "";
+        this.descriptionInputElement.value = "";
+        this.mandayInputElement.value = "";
     }
     submitHandler(event) {
         event.preventDefault();
